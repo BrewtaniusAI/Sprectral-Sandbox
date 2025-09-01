@@ -1,0 +1,24 @@
+spectral_sandbox/
+  __init__.py
+  isep.py
+  operators.py
+  proofvault.py
+examples/
+  intro_linear_algebra.ipynb
+  riemann_hypothesis_sketch.ipynb
+docs/
+  README.md
+  API.md
+  GAP_PAPER.md
+setup.py
+LICENSE (MIT)
+CITATION.cff
+import numpy as np
+
+def isep_check(operator, tol=1e-8):
+    """Check if operator satisfies Isep ≡ P_O = I."""
+    eigvals, eigvecs = np.linalg.eigh(operator)
+    span = eigvecs @ eigvecs.conj().T
+    identity = np.eye(operator.shape[0])
+    error = np.linalg.norm(span - identity)
+    return error < tol, error
