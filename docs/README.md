@@ -1,0 +1,121 @@
+# SpectralSandbox
+
+**A lightweight Python toolkit for spectral methods in linear algebra —
+exploring operator self-completeness (ISEP), spectral decompositions,
+GUE random-matrix statistics, and heuristic connections to the Riemann Hypothesis.**
+
+---
+
+## Installation
+
+```bash
+pip install -e ".[dev]"
+```
+
+> Requires Python ≥ 3.10 and NumPy ≥ 1.24.
+
+---
+
+## Quick Start
+
+```python
+import numpy as np
+from spectral_sandbox import random_hermitian, isep_check, ProofVault
+
+# Build a random Hermitian operator
+H = random_hermitian(8, seed=42)
+
+# Verify the ISEP condition P_O = I
+passes, error = isep_check(H)
+print(f"ISEP satisfied: {passes}  (residual {error:.2e})")
+
+# Track the result in the proof vault
+vault = ProofVault()
+vault.register("isep_gue8", "Eigenprojectors of a 8×8 GUE sample span I.")
+vault.verify("isep_gue8", description="Checked numerically", data={"error": error})
+print(vault.summary())
+```
+
+---
+
+## Package Layout
+
+```
+spectral_sandbox/
+├── __init__.py       – public API
+├── isep.py           – ISEP (P_O = I) checks and eigenbasis utilities
+├── operators.py      – factory functions for Hermitian operators
+└── proofvault.py     – claim-and-verify ledger
+
+examples/
+├── intro_linear_algebra.ipynb       – tour of operators + ISEP
+└── riemann_hypothesis_sketch.ipynb  – GUE / zeta-zero spectral sketch
+
+docs/
+├── README.md    (this file)
+├── API.md       – full API reference
+└── GAP_PAPER.md – research notes on spectral gaps and the Riemann Hypothesis
+```
+
+---
+
+## Core Concepts
+
+### ISEP — Identity-Spanning Eigenprojectors
+
+For a Hermitian operator *H*, the **ISEP condition** states that the sum of
+its eigenprojectors reproduces the identity:
+
+```
+P_H = Σ_k |ψ_k⟩⟨ψ_k| = I
+```
+
+This is equivalent to *H* having a complete orthonormal eigenbasis, and is
+the spectral cornerstone of quantum mechanics and signal processing.
+
+```python
+from spectral_sandbox import isep_check, isep_basis
+
+passes, err = isep_check(H)     # bool, float residual
+vals, vecs  = isep_basis(H)     # sorted eigenvalues + eigenvectors
+```
+
+### Operators
+
+| Function | Description |
+|---|---|
+| `diagonal_operator(eigenvalues)` | Real diagonal matrix |
+| `random_hermitian(n, seed)` | GUE sample |
+| `laplacian_operator(n, periodic)` | Discrete 1-D Laplacian |
+| `riemann_zeta_operator(n)` | Diagonal operator encoding approximate zeta zeros |
+
+### ProofVault
+
+```python
+from spectral_sandbox import ProofVault
+from spectral_sandbox.proofvault import ClaimStatus
+
+vault = ProofVault()
+vault.register("rh", "All non-trivial zeros lie on Re(s)=1/2.",
+               status=ClaimStatus.OPEN)
+print(vault.summary())
+# → {'conjecture': 0, 'verified': 0, 'refuted': 0, 'open': 1}
+```
+
+---
+
+## Running Tests
+
+```bash
+pytest tests/ -v
+```
+
+---
+
+## License
+
+MIT — see [LICENSE](../LICENSE).
+
+## Citation
+
+If you use this software, please cite it via [CITATION.cff](../CITATION.cff).

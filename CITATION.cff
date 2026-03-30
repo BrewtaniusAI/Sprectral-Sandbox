@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use SpectralSandbox in your research, please cite it as below."
+type: software
+title: "SpectralSandbox"
+version: "0.1.0"
+date-released: "2026-03-30"
+license: MIT
+url: "https://github.com/BrewtaniusAI/Sprectral-Sandbox"
+repository-code: "https://github.com/BrewtaniusAI/Sprectral-Sandbox"
+abstract: >
+  SpectralSandbox is a lightweight Python toolkit for spectral methods in
+  linear algebra, exploring operator self-completeness (ISEP), spectral
+  decompositions, GUE random-matrix statistics, and heuristic connections
+  between spectral theory and the Riemann Hypothesis.
+authors:
+  - alias: "BrewtaniusAI"
+keywords:
+  - spectral theory
+  - linear algebra
+  - ISEP
+  - Riemann Hypothesis
+  - random matrices
+  - GUE

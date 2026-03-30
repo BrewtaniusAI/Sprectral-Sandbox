@@ -1,0 +1,14 @@
+LICENSE
+setup.py
+spectral_sandbox/__init__.py
+spectral_sandbox/isep.py
+spectral_sandbox/operators.py
+spectral_sandbox/proofvault.py
+spectral_sandbox.egg-info/PKG-INFO
+spectral_sandbox.egg-info/SOURCES.txt
+spectral_sandbox.egg-info/dependency_links.txt
+spectral_sandbox.egg-info/requires.txt
+spectral_sandbox.egg-info/top_level.txt
+tests/test_isep.py
+tests/test_operators.py
+tests/test_proofvault.py
