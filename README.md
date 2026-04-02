@@ -29,7 +29,7 @@ Sprectral Sandbox hosts the Open Spectral Science specifications and provides an
 
 ## Dashboard
 
-Sprectral Sandbox includes an AI-integrated **Liquid Glass** dashboard (`dashboard/index.html`) providing:
+Sprectral Sandbox has an AI-integrated **Liquid Glass** dashboard providing:
 
 - Specification browser with 5 sections and search filtering
 - Experiment viewer with methodology and results
@@ -39,7 +39,7 @@ Sprectral Sandbox includes an AI-integrated **Liquid Glass** dashboard (`dashboa
 - EU AI Act transparency labels
 - Glass-morphism dark UI design
 
-Open `dashboard/index.html` in any browser to launch.
+> **Note:** The dashboard is available on the [`devin/1775154432-ai-dashboard`](https://github.com/BrewtaniusAI/Sprectral-Sandbox/tree/devin/1775154432-ai-dashboard) branch. Once merged, open `dashboard/index.html` in any browser.
 
 ---
 
@@ -48,8 +48,6 @@ Open `dashboard/index.html` in any browser to launch.
 ```
 Sprectral-Sandbox/
 ├── OpenSpectralSchience           # Core specification document
-├── dashboard/                     # Liquid Glass spec viewer
-│   └── index.html
 └── feature_flags.yml              # Feature lifecycle management
 ```
 
