@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Spectral Sandbox — Specification Viewer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+<style>
+  body{background:#05060a;color:#e2e8f0;font-family:'Inter',system-ui,sans-serif}
+  .glass{background:rgba(15,23,42,0.6);backdrop-filter:blur(16px);border:1px solid rgba(148,163,184,0.08)}
+  .glass-strong{background:rgba(15,23,42,0.8);backdrop-filter:blur(24px);border:1px solid rgba(148,163,184,0.12)}
+  .gradient-text{background:linear-gradient(135deg,#06b6d4,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .ai-label{font-size:0.6rem;letter-spacing:0.1em;padding:1px 6px;border-radius:4px;background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid rgba(168,85,247,0.25);vertical-align:super}
+  @keyframes fade-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+  .animate-fade-in{animation:fade-in .4s cubic-bezier(.16,1,.3,1) forwards}
+  .shimmer{background:linear-gradient(90deg,transparent 0%,rgba(139,92,246,0.05) 50%,transparent 100%);background-size:200% 100%;animation:shimmer 3s ease-in-out infinite}
+  .spec-section{transition:all .2s ease;cursor:pointer}.spec-section:hover{border-color:rgba(139,92,246,0.3);background:rgba(139,92,246,0.03)}
+</style>
+</head>
+<body class="min-h-screen antialiased">
+<div class="max-w-5xl mx-auto px-4 py-12">
+  <!-- Hero -->
+  <div class="text-center mb-12 animate-fade-in">
+    <div class="inline-flex items-center gap-3 mb-6"><div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-violet-500/20 flex items-center justify-center text-3xl">🌈</div></div>
+    <h1 class="text-4xl font-bold tracking-tight gradient-text mb-3">Spectral Sandbox</h1>
+    <p class="text-lg text-slate-400">Interactive specification viewer for the CollectiveOS experimentation layer</p>
+    <div class="flex items-center justify-center gap-4 mt-6">
+      <span class="text-[10px] px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300">Specification</span>
+      <span class="text-[10px] px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">Sandbox</span>
+      <span class="text-[10px] px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-300">Experimentation</span>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="glass rounded-2xl p-4 mb-8 animate-fade-in" style="animation-delay:.05s">
+    <div class="flex items-center gap-3"><svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><input id="search" type="text" placeholder="Search specifications... (e.g. sandbox, experiment, spectral)" class="flex-1 bg-transparent text-slate-200 placeholder-slate-500 outline-none text-sm" oninput="filterSpecs(this.value)"/><span class="ai-label">AI SEARCH</span></div>
+  </div>
+
+  <!-- Spec Sections -->
+  <div id="specs" class="space-y-4">
+    <div class="spec-section glass rounded-2xl p-6 animate-fade-in" style="animation-delay:.1s" data-keywords="sandbox overview architecture">
+      <div class="flex items-center gap-3 mb-4"><div class="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-300 text-sm">§1</div><h2 class="text-lg font-bold text-slate-200">Sandbox Architecture</h2></div>
+      <p class="text-sm text-slate-400 leading-relaxed mb-4">The Spectral Sandbox provides an isolated, governed experimentation layer for CollectiveOS. All experiments run within constraint-bounded containers that enforce the Isomorphic Closure Invariant. No experiment can escape its sandbox without passing the QC→GATA→GATA PRIME pipeline.</p>
+      <div class="grid grid-cols-3 gap-3">
+        <div class="p-3 rounded-xl bg-violet-500/5 border border-violet-500/10 text-center"><div class="text-xs font-semibold text-violet-300">Isolated</div><div class="text-[10px] text-slate-500 mt-1">Container-bounded</div></div>
+        <div class="p-3 rounded-xl bg-cyan-500/5 border border-cyan-500/10 text-center"><div class="text-xs font-semibold text-cyan-300">Governed</div><div class="text-[10px] text-slate-500 mt-1">Constraint-enforced</div></div>
+        <div class="p-3 rounded-xl bg-pink-500/5 border border-pink-500/10 text-center"><div class="text-xs font-semibold text-pink-300">Reproducible</div><div class="text-[10px] text-slate-500 mt-1">Deterministic replay</div></div>
+      </div>
+    </div>
+
+    <div class="spec-section glass rounded-2xl p-6 animate-fade-in" style="animation-delay:.15s" data-keywords="spectral analysis frequency domain">
+      <div class="flex items-center gap-3 mb-4"><div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-300 text-sm">§2</div><h2 class="text-lg font-bold text-slate-200">Spectral Analysis Layer</h2></div>
+      <p class="text-sm text-slate-400 leading-relaxed mb-4">The spectral layer decomposes system behavior into frequency-domain representations. This enables detection of oscillatory patterns, resonance modes, and harmonic instabilities that are invisible in time-domain analysis alone.</p>
+      <div class="glass rounded-xl p-4"><div class="font-mono text-xs text-violet-300 text-center">F(ω) = ∫₋∞^∞ f(t)·e^(−iωt) dt → Spectral decomposition of constraint dynamics</div></div>
+    </div>
+
+    <div class="spec-section glass rounded-2xl p-6 animate-fade-in" style="animation-delay:.2s" data-keywords="experiment protocol methodology">
+      <div class="flex items-center gap-3 mb-4"><div class="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-300 text-sm">§3</div><h2 class="text-lg font-bold text-slate-200">Experiment Protocol</h2></div>
+      <p class="text-sm text-slate-400 leading-relaxed mb-4">Each experiment follows a strict protocol: Hypothesis → Design → Bounded Execution → Spectral Analysis → Proof Generation → Archive. All results are SHA-256 hash-chained into the proof vault for immutable reproducibility.</p>
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 text-[10px]">
+        <span class="px-3 py-1.5 rounded-lg bg-violet-500/10 border border-violet-500/20 text-violet-300 flex-shrink-0">Hypothesis</span><span class="text-slate-600">→</span>
+        <span class="px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 flex-shrink-0">Design</span><span class="text-slate-600">→</span>
+        <span class="px-3 py-1.5 rounded-lg bg-pink-500/10 border border-pink-500/20 text-pink-300 flex-shrink-0">Execute</span><span class="text-slate-600">→</span>
+        <span class="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 flex-shrink-0">Analyze</span><span class="text-slate-600">→</span>
+        <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 flex-shrink-0">Prove</span><span class="text-slate-600">→</span>
+        <span class="px-3 py-1.5 rounded-lg bg-slate-500/10 border border-slate-500/20 text-slate-300 flex-shrink-0">Archive</span>
+      </div>
+    </div>
+
+    <div class="spec-section glass rounded-2xl p-6 animate-fade-in" style="animation-delay:.25s" data-keywords="constraint boundary safety limits">
+      <div class="flex items-center gap-3 mb-4"><div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-300 text-sm">§4</div><h2 class="text-lg font-bold text-slate-200">Constraint Boundaries</h2></div>
+      <p class="text-sm text-slate-400 leading-relaxed">Sandbox experiments are bounded by the same constitutional constraints as production systems: fixed-time convergence (ELFE v∞.1), isomorphic closure, and the silence clause. If an experiment's drift metric D(x) exceeds D_max = 0.001, execution is automatically halted and the experiment is rolled back to its last safe checkpoint.</p>
+    </div>
+
+    <div class="spec-section glass rounded-2xl p-6 animate-fade-in" style="animation-delay:.3s" data-keywords="integration api collectiveos">
+      <div class="flex items-center gap-3 mb-4"><div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-300 text-sm">§5</div><h2 class="text-lg font-bold text-slate-200">CollectiveOS Integration</h2></div>
+      <p class="text-sm text-slate-400 leading-relaxed">The Spectral Sandbox integrates with the broader CollectiveOS ecosystem via the standard governance envelope format. Experiment results can be promoted to production configurations through the GATA PRIME verification gate, ensuring that only proven, constraint-compliant discoveries enter the live system.</p>
+    </div>
+  </div>
+
+  <!-- AI Assistant -->
+  <div class="glass rounded-2xl p-5 mt-8 animate-fade-in" style="animation-delay:.35s">
+    <div class="flex items-center gap-2 mb-3"><span class="text-sm font-semibold text-slate-200">Spec AI Assistant</span><span class="ai-label">AI</span></div>
+    <div class="flex gap-2">
+      <input id="aiQ" type="text" placeholder="Ask about sandbox specs, experiments, spectral analysis..." class="flex-1 bg-slate-800/50 border border-slate-700/50 rounded-xl px-3 py-2.5 text-sm text-slate-200 placeholder-slate-500 outline-none focus:border-violet-500/40" onkeydown="if(event.key==='Enter')askAI()"/>
+      <button onclick="askAI()" class="px-4 py-2 bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 rounded-xl text-violet-300 text-sm font-medium transition-all">Ask</button>
+    </div>
+    <div id="aiAnswer" class="mt-3 text-xs text-slate-400 leading-relaxed hidden p-3 rounded-xl bg-violet-500/5 border border-violet-500/10"></div>
+  </div>
+</div>
+
+<script>
+function filterSpecs(q){const specs=document.querySelectorAll('.spec-section');const ql=q.toLowerCase();specs.forEach(s=>{const keywords=s.dataset.keywords||'';const text=s.textContent.toLowerCase();const match=!q||keywords.includes(ql)||text.includes(ql);s.style.display=match?'block':'none'})}
+function askAI(){const q=document.getElementById('aiQ').value.trim();if(!q)return;const a=document.getElementById('aiAnswer');a.classList.remove('hidden');const l=q.toLowerCase();if(l.includes('sandbox'))a.innerHTML='The Spectral Sandbox is an isolated experimentation layer within CollectiveOS. All experiments run in constraint-bounded containers enforcing the Isomorphic Closure Invariant. No experiment escapes without passing QC→GATA→GATA PRIME.';else if(l.includes('spectral')||l.includes('frequency'))a.innerHTML='Spectral analysis decomposes system behavior into frequency-domain representations using Fourier transforms: F(ω) = ∫f(t)·e^(−iωt)dt. This reveals oscillatory patterns and harmonic instabilities invisible in time-domain.';else if(l.includes('experiment')||l.includes('protocol'))a.innerHTML='Protocol: Hypothesis → Design → Bounded Execution → Spectral Analysis → Proof Generation → Archive. All results are SHA-256 hash-chained. Drift threshold D_max = 0.001 auto-halts runaway experiments.';else if(l.includes('constraint')||l.includes('boundary'))a.innerHTML='Experiments are bounded by: (1) Fixed-time convergence via ELFE v∞.1, (2) Isomorphic closure invariant, (3) Silence clause. Drift D(x) > 0.001 triggers automatic rollback to last safe checkpoint.';else a.innerHTML='I can explain: <span class="text-violet-300">sandbox architecture</span>, <span class="text-cyan-300">spectral analysis</span>, <span class="text-pink-300">experiment protocol</span>, <span class="text-amber-300">constraint boundaries</span>, or <span class="text-emerald-300">CollectiveOS integration</span>.'}
+</script>
+</body>
+</html>
