@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg-sprectral-sandbox" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1a0a2e" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#1a0a2e"/>
+  <rect width="64" height="64" rx="12" fill="url(#bg-sprectral-sandbox)" opacity="0.8"/>
+<!-- Prism with Rainbow -->
+    <polygon points="32,10 48,50 16,50" fill="none" stroke="#ec4899" stroke-width="2.5"/>
+    <polygon points="32,10 48,50 16,50" fill="#ec4899" opacity="0.15"/>
+    <line x1="20" y1="30" x2="8" y2="26" stroke="#ef4444" stroke-width="2"/>
+    <line x1="18" y1="36" x2="6" y2="34" stroke="#f97316" stroke-width="2"/>
+    <line x1="17" y1="42" x2="5" y2="42" stroke="#eab308" stroke-width="2"/>
+    <line x1="44" y1="30" x2="56" y2="22" stroke="#22c55e" stroke-width="2"/>
+    <line x1="46" y1="36" x2="58" y2="32" stroke="#3b82f6" stroke-width="2"/>
+    <line x1="47" y1="42" x2="59" y2="42" stroke="#8b5cf6" stroke-width="2"/>
+</svg>
